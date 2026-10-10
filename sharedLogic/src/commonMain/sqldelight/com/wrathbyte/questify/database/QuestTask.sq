@@ -1,0 +1,33 @@
+import kotlin.Boolean;
+
+CREATE TABLE QuestTask (
+    id TEXT NOT NULL PRIMARY KEY,
+    questID TEXT,
+    title TEXT NOT NULL,
+    description TEXT,
+    isCompleted INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+insertTask:
+INSERT INTO QuestTask (
+    id,
+    questID,
+    title,
+    description,
+    isCompleted
+)
+VALUES (?, ?, ?, ?, ?);
+
+selectAllTasks:
+SELECT *
+FROM QuestTask
+ORDER BY rowid DESC;
+
+updateTaskCompletion:
+UPDATE QuestTask
+SET isCompleted = ?
+WHERE id = ?;
+
+deleteTask:
+DELETE FROM QuestTask
+WHERE id = ?;
