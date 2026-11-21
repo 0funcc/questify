@@ -10,15 +10,18 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.wrathbyte.questify.QuestRepository
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    repository: QuestRepository? = null
+) {
     var selectedTab by remember {
         mutableIntStateOf(0)
     }
@@ -54,6 +57,7 @@ fun AppNavigation() {
 
         when (selectedTab) {
             0 -> HomeScreen(
+                repository = repository,
                 modifier = Modifier.padding(innerPadding)
             )
 

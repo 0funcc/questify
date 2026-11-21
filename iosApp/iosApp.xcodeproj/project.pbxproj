@@ -6,12 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4CCCD55A307AA52E0036D520 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCCD559307AA52E0036D520 /* libsqlite3.tbd */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		4CCCD559307AA52E0036D520 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		84807C83A975F411D6E55777 /* Questify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8A788E4FC8DA9517A923B09A /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		8A788E4FC8DA9517A923B09A /* Exceptions for "iosApp" folder in "iosApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -23,21 +28,13 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6B73CF978E3AD88F24EDA8C7 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
 			path = Configuration;
 			sourceTree = "<group>";
 		};
 		A2275A749014D0EAF89EA8BE /* iosApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8A788E4FC8DA9517A923B09A /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
+				8A788E4FC8DA9517A923B09A /* Exceptions for "iosApp" folder in "iosApp" target */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -49,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCCD55A307AA52E0036D520 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,8 +58,17 @@
 			children = (
 				6B73CF978E3AD88F24EDA8C7 /* Configuration */,
 				A2275A749014D0EAF89EA8BE /* iosApp */,
+				4CCCD558307AA52E0036D520 /* Frameworks */,
 				C29BD7C94208BBBC6A145E84 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		4CCCD558307AA52E0036D520 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4CCCD559307AA52E0036D520 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C29BD7C94208BBBC6A145E84 /* Products */ = {
