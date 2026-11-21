@@ -12,6 +12,8 @@ kotlin {
 }
 dependencies {
     implementation(project(":sharedUI"))
+    implementation(project(":sharedLogic"))
+    implementation(libs.sqldelight.android.driver)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.material3)

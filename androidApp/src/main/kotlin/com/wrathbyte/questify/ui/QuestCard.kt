@@ -1,12 +1,8 @@
 package com.wrathbyte.questify.ui
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,17 +15,23 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wrathbyte.questify.Task
 
 @Composable
-fun TaskCard(
+fun QuestCard(
     task: Task,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onToggleComplete: (Boolean) -> Unit = {}
 ) {
     var isCompleted by remember {
         mutableStateOf(task.isCompleted)
@@ -46,11 +48,16 @@ fun TaskCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = Alignment.Top
+            verticalAlignment = if (task.description.isNullOrBlank()) {
+                Alignment.CenterVertically
+            } else {
+                Alignment.Top
+            }
         ) {
             IconButton(
                 onClick = {
                     isCompleted = !isCompleted
+                    onToggleComplete(isCompleted)
                 },
                 modifier = Modifier.size(40.dp)
             ) {
@@ -77,15 +84,19 @@ fun TaskCard(
                 Text(
                     text = task.title,
                     style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Medium
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+                    textDecoration = if (isCompleted) TextDecoration.LineThrough else TextDecoration.None
                 )
 
                 task.description?.let { description ->
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    if (description.isNotBlank()) {
+                        Text(
+                            text = description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1
+                        )
+                    }
                 }
             }
         }
@@ -94,8 +105,8 @@ fun TaskCard(
 
 @Preview(showBackground = true)
 @Composable
-fun TaskCardPreview() {
-    TaskCard(
+fun QuestCardPreview() {
+    QuestCard(
         task = Task(
             id = "1",
             title = "Finish CS assignment",
