@@ -9,12 +9,12 @@ class QuestRepository(driver: SqlDriver) {
     private val database = QuestifyDatabase(driver)
     private val queries = database.questTaskQueries
 
-    fun addTask(
+    fun addQuest(
         title: String,
         questID: String?,
         description: String?
-    ): Task {
-        val task = Task(
+    ): Quest {
+        val quest = Quest(
             id = generateID(),
             questID = questID,
             title = title,
@@ -22,21 +22,21 @@ class QuestRepository(driver: SqlDriver) {
         )
 
         queries.insertTask(
-            id = task.id,
-            questID = task.questID,
-            title = task.title,
-            description = task.description,
-            isCompleted = task.isCompleted
+            id = quest.id,
+            questID = quest.questID,
+            title = quest.title,
+            description = quest.description,
+            isCompleted = quest.isCompleted
         )
 
-        return task
+        return quest
     }
 
-    fun getTasks(): List<Task> {
+    fun getQuests(): List<Quest> {
         return queries.selectAllTasks()
             .executeAsList()
             .map { row ->
-                Task(
+                Quest(
                     id = row.id,
                     questID = row.questID,
                     title = row.title,
@@ -46,16 +46,29 @@ class QuestRepository(driver: SqlDriver) {
             }
     }
 
-    fun setTaskCompleted(id: String, completed: Boolean) {
+    fun setQuestCompleted(id: String, completed: Boolean) {
         queries.updateTaskCompletion(
             isCompleted = completed,
             id = id
         )
     }
 
-    fun deleteTask(id: String) {
+    fun deleteQuest(id: String) {
         queries.deleteTask(id)
     }
+
+    @Deprecated("Use addQuest instead", ReplaceWith("addQuest(title, questID, description)"))
+    fun addTask(title: String, questID: String?, description: String?): Quest =
+        addQuest(title, questID, description)
+
+    @Deprecated("Use getQuests instead", ReplaceWith("getQuests()"))
+    fun getTasks(): List<Quest> = getQuests()
+
+    @Deprecated("Use setQuestCompleted instead", ReplaceWith("setQuestCompleted(id, completed)"))
+    fun setTaskCompleted(id: String, completed: Boolean) = setQuestCompleted(id, completed)
+
+    @Deprecated("Use deleteQuest instead", ReplaceWith("deleteQuest(id)"))
+    fun deleteTask(id: String) = deleteQuest(id)
 
     private fun generateID(): String {
         return Random.nextLong().toString()

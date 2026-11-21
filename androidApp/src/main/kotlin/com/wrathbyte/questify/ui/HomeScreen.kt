@@ -42,8 +42,8 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
 
-    // Read tasks dynamically from database into state
-    var tasks by remember { mutableStateOf(repository?.getTasks() ?: emptyList()) }
+    // Read quests dynamically from database into state
+    var quests by remember { mutableStateOf(repository?.getQuests() ?: emptyList()) }
 
     Scaffold(
         topBar = {
@@ -77,13 +77,13 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(
-                items = tasks,
+                items = quests,
                 key = { it.id }
-            ) { task ->
+            ) { quest ->
                 QuestCard(
-                    task = task,
+                    quest = quest,
                     onToggleComplete = { isCompleted ->
-                        repository?.setTaskCompleted(task.id, isCompleted)
+                        repository?.setQuestCompleted(quest.id, isCompleted)
                     }
                 )
             }
@@ -99,12 +99,12 @@ fun HomeScreen(
             ) {
                 AddQuestCard(
                     onDone = { name, description ->
-                        repository?.addTask(
+                        repository?.addQuest(
                             title = name,
                             questID = null,
                             description = description.ifBlank { null }
                         )
-                        tasks = repository?.getTasks() ?: emptyList()
+                        quests = repository?.getQuests() ?: emptyList()
 
                         scope.launch { sheetState.hide() }.invokeOnCompletion {
                             if (!sheetState.isVisible) {

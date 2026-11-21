@@ -25,16 +25,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.wrathbyte.questify.Task
+import com.wrathbyte.questify.Quest
 
 @Composable
 fun QuestCard(
-    task: Task,
+    quest: Quest,
     modifier: Modifier = Modifier,
     onToggleComplete: (Boolean) -> Unit = {}
 ) {
     var isCompleted by remember {
-        mutableStateOf(task.isCompleted)
+        mutableStateOf(quest.isCompleted)
     }
 
     Card(
@@ -48,7 +48,7 @@ fun QuestCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = if (task.description.isNullOrBlank()) {
+            verticalAlignment = if (quest.description.isNullOrBlank()) {
                 Alignment.CenterVertically
             } else {
                 Alignment.Top
@@ -82,13 +82,13 @@ fun QuestCard(
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
-                    text = task.title,
+                    text = quest.title,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
                     textDecoration = if (isCompleted) TextDecoration.LineThrough else TextDecoration.None
                 )
 
-                task.description?.let { description ->
+                quest.description?.let { description ->
                     if (description.isNotBlank()) {
                         Text(
                             text = description,
@@ -107,7 +107,7 @@ fun QuestCard(
 @Composable
 fun QuestCardPreview() {
     QuestCard(
-        task = Task(
+        quest = Quest(
             id = "1",
             title = "Finish CS assignment",
             description = "Complete MST129 questions",
